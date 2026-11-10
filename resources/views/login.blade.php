@@ -1,42 +1,33 @@
 @extends('layouts.app')
 
 @section('title', 'Login')
+@section('tanpa_navbar', 'ya')
 
 @section('content')
-<div class="max-w-md mx-auto mt-8">
-    <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
-        <p class="text-4xl mb-2">🍳</p>
-        <h1 class="text-2xl font-bold text-emerald-800">StokDapur</h1>
-        <p class="text-stone-500 text-sm mb-6">Masuk untuk mengelola gudang bahan baku restoran.</p>
+    <div style="max-width: 380px; margin: 40px auto 0;">
+        <h1>Masuk</h1>
+        <p>Silakan masukkan username dan password untuk melihat data bahan baku.</p>
 
-        <form action="{{ route('login.proses') }}" method="POST" class="space-y-4">
+        @error('login')
+            <div class="galat">{{ $message }}</div>
+        @enderror
+
+        <form method="POST" action="{{ route('masuk') }}">
             @csrf
 
-            <div>
-                <label for="username" class="block text-sm font-medium mb-1">Username</label>
-                <input type="text" id="username" name="username" value="{{ old('username') }}"
-                       class="w-full rounded-md border border-stone-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                @error('username')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ old('username') }}" autofocus>
+            @error('username')
+                <div class="galat">{{ $message }}</div>
+            @enderror
 
-            <div>
-                <label for="password" class="block text-sm font-medium mb-1">Password</label>
-                <input type="password" id="password" name="password"
-                       class="w-full rounded-md border border-stone-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                @error('password')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            @error('password')
+                <div class="galat">{{ $message }}</div>
+            @enderror
 
-            <button type="submit"
-                    class="w-full bg-emerald-700 text-white font-semibold py-2.5 rounded-md hover:bg-emerald-800">
-                Masuk
-            </button>
+            <button type="submit" class="tombol">Masuk</button>
         </form>
-
-        <p class="text-xs text-stone-400 mt-4 text-center">Demo: isi username bebas, password <b>123</b></p>
     </div>
-</div>
 @endsection
